@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 19 Décembre 2012 à 22:25
+-- Généré le: Ven 21 Décembre 2012 à 18:33
 -- Version du serveur: 5.5.16-log
 -- Version de PHP: 5.3.13
 
@@ -37,14 +37,14 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `nego` tinyint(1) NOT NULL DEFAULT '0',
   `note` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `clients`
 --
 
 INSERT INTO `clients` (`id`, `nom`, `prenom`, `raisonsociale`, `ville`, `tel`, `nvehicules_id`, `nego`, `note`) VALUES
-(3, 'Ali', 'Paul', '', 'Toulouse', '0618513009', 26, 0, '');
+(4, 'Dupond', 'Paul', 'RAS', 'Toulouse', '0618513009', 30, 0, '<p>Rendez-vous pris pour le <span style="background-color:Lime;">18/02/2013</span> &agrave; 15h30</p>\r\n');
 
 -- --------------------------------------------------------
 
@@ -66,11 +66,11 @@ CREATE TABLE IF NOT EXISTS `clientvos` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Contenu la table `clientvos`
+-- Contenu de la table `clientvos`
 --
 
 INSERT INTO `clientvos` (`id`, `nom`, `prenom`, `raisonsociale`, `ville`, `tel`, `ovehicules_id`, `nego`, `note`) VALUES
-(1, 'Dupond', 'Arni', '', 'Toulouse', '000000', 5, 0, ''),
+(1, 'Dupond', 'Arni', 'RAS', 'Toulouse', '000000', 5, 0, '<p>Rendez vous pris pour le 25/02/2013 &agrave; 10h, <del>payement par virement</del>, ch&egrave;que.</p>\r\n'),
 (2, 'Dupond', '', '', '', '', 6, 1, '');
 
 -- --------------------------------------------------------
@@ -163,19 +163,17 @@ CREATE TABLE IF NOT EXISTS `nvehicules` (
   `envente` tinyint(1) NOT NULL DEFAULT '0',
   `entransfert` tinyint(1) NOT NULL DEFAULT '0',
   `vendu` tinyint(1) NOT NULL DEFAULT '0',
+  `infoptions` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_nvehicules_clients1` (`parcs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='véhicules neuf' AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='véhicules neuf' AUTO_INCREMENT=31 ;
 
 --
 -- Contenu de la table `nvehicules`
 --
 
-INSERT INTO `nvehicules` (`id`, `marque`, `model`, `carrosserie`, `puissance`, `couleur`, `finission`, `commentaire`, `filename`, `prix`, `boite`, `motorisation`, `parcs_id`, `dir`, `mimetype`, `filesize`, `envente`, `entransfert`, `vendu`) VALUES
-(26, 'Mercedes', 'Classe CLS', 'Break, SW', '15ch', 'Jaune', '', '', '20121206102408_img_1.jpg', '15000€', '5ch', 'Essence', 1, 'img\\lesimages\\nvehicules', 'image/jpeg', 10491, 1, 1, 1),
-(27, 'Fiat', 'SPORT', 'Coupé', '15ch', 'Rouge', '', '', '19198_1.jpg', '8700€', '5ch', 'Essence', 2, 'img\\lesimages\\nvehicules', 'image/jpeg', 142630, 0, 0, 0),
-(28, 'Porsche', 'SPORT', 'Break, SW', '15ch', 'Blanche', '', '', 'porsche.jpg', '23000€', 'Manuelle', 'Essence', 1, 'img\\lesimages\\nvehicules', 'image/jpeg', 92657, 1, 0, 1),
-(29, 'Peugeot', '206', '', '', '', '', '', 'vehicule1.jpg', '', '', '', 2, 'img\\lesimages\\nvehicules', 'image/jpeg', 9040, 1, 1, 0);
+INSERT INTO `nvehicules` (`id`, `marque`, `model`, `carrosserie`, `puissance`, `couleur`, `finission`, `commentaire`, `filename`, `prix`, `boite`, `motorisation`, `parcs_id`, `dir`, `mimetype`, `filesize`, `envente`, `entransfert`, `vendu`, `infoptions`) VALUES
+(30, 'Mercedes', '997 GT2 CLUBSPORT', 'Coupé', '5ch', 'Jaune', '', '<p>Rien &agrave; signaler...</p>\r\n', '20121206102408_img_1.jpg', '15000€', 'Manuelle', 'Diésel', 1, 'img\\lesimages\\nvehicules', 'image/jpeg', 10491, 1, 0, 1, '<ul>\r\n	<li><small>Dodge Viper Hennessey Venom 600 Roadster 1994&rlm; Kilom&eacute;trage 12 000 km Ann&eacute;e 1994,</small></li>\r\n	<li><small>Corps Cabriolet Effet 405 ch</small></li>\r\n	<li><small><span style="background-color:Lime;">Carburant diesel </span></small></li>\r\n	<li><small>Transmission Manuel</small></li>\r\n	<li><small>Couleur Rouge</small></li>\r\n	<li><small>Nombre de si&egrave;ges 2 <del>Lettmet</del>.</small></li>\r\n	<li><small>Summer roue Vitrail Radio / CD</small></li>\r\n	<li><small><span style="background-color:Yellow;">Direction assist&eacute;e</span> Int&eacute;rieur en cuir Alarme</small></li>\r\n</ul>\r\n');
 
 -- --------------------------------------------------------
 
@@ -199,22 +197,21 @@ CREATE TABLE IF NOT EXISTS `ovehicules` (
   `kilometrage` varchar(100) DEFAULT NULL,
   `circulation` varchar(255) DEFAULT NULL,
   `parcs_id` int(11) NOT NULL,
-  `infoptions` longtext NOT NULL,
+  `infoptions` text NOT NULL,
   `annee` varchar(255) NOT NULL,
   `envente` tinyint(1) NOT NULL DEFAULT '0',
   `entransfert` tinyint(1) NOT NULL DEFAULT '0',
   `vendu` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_ovehicules_clients1` (`parcs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='véhicules occasion' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='véhicules occasion' AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `ovehicules`
 --
 
 INSERT INTO `ovehicules` (`id`, `marque`, `model`, `carrosserie`, `puissance`, `couleur`, `finission`, `commentaire`, `filename`, `prix`, `boite`, `motorisation`, `kilometrage`, `circulation`, `parcs_id`, `infoptions`, `annee`, `envente`, `entransfert`, `vendu`) VALUES
-(5, 'Porsche', 'BLOO', '', '5ch', 'Blanche', '', '', 'porsche.jpg', '120000€', '', 'Essence', '1798766 km', '2010', 1, '', '2008', 0, 0, 0),
-(6, 'Mercedes', 'BLOO', '', '', 'Jaune', '', '', '20121206102408_img_1.jpg', '120000€', '', 'Diesel', '9798766 km', '', 2, '', '2008', 1, 0, 1);
+(7, 'Porsche', '308 1.6 HDI 110 PREMIUM PACK 5P', 'Berline 4/5P', '110 ch. 6 cv.', 'Blanche', '', '<p>Mise en ligne par simpliceduret le 05/11/2012 &agrave; 07:31<br />\r\n&nbsp;</p>\r\n', 'porsche.jpg', '150000€', 'Manuelle', 'Essence', '72 856 km', '2010', 1, '<ul>\r\n	<li>Dodge Viper Hennessey Venom 600 Roadster 1994&rlm; Kilom&eacute;trage 12 000 km Ann&eacute;e 1994,</li>\r\n	<li>Corps Cabriolet Effet 405 ch</li>\r\n	<li><span style="background-color:Lime;">Carburant diesel </span></li>\r\n	<li>Transmission Manuel</li>\r\n	<li>Couleur Rouge</li>\r\n	<li>Nombre de si&egrave;ges 2 <del>Lettmet</del>.</li>\r\n	<li>Summer roue Vitrail Radio / CD</li>\r\n	<li><span style="background-color:Yellow;">Direction assist&eacute;e</span> Int&eacute;rieur en cuir Alarme</li>\r\n</ul>\r\n', '2008', 0, 0, 0);
 
 -- --------------------------------------------------------
 
