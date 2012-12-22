@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 21 Décembre 2012 à 18:33
+-- Généré le: Sam 22 Décembre 2012 à 22:27
 -- Version du serveur: 5.5.16-log
 -- Version de PHP: 5.3.13
 
@@ -76,21 +76,31 @@ INSERT INTO `clientvos` (`id`, `nom`, `prenom`, `raisonsociale`, `ville`, `tel`,
 -- --------------------------------------------------------
 
 --
--- Structure de la table `formulairecontacts`
+-- Structure de la table `contacts`
 --
 
-CREATE TABLE IF NOT EXISTS `formulairecontacts` (
+CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `departemnt` varchar(45) DEFAULT NULL,
-  `titre` varchar(45) DEFAULT NULL,
-  `prenom` varchar(45) DEFAULT NULL,
-  `nom` varchar(45) DEFAULT NULL,
-  `adresse` varchar(45) DEFAULT NULL,
-  `ville` varchar(45) DEFAULT NULL,
-  `mail` varchar(45) DEFAULT NULL,
-  `message` mediumtext,
+  `departement` varchar(45) NOT NULL,
+  `prenom` varchar(45) NOT NULL,
+  `nom` varchar(45) NOT NULL,
+  `adresse` varchar(145) NOT NULL,
+  `ville` varchar(45) NOT NULL,
+  `mail` varchar(45) NOT NULL,
+  `message` text NOT NULL,
+  `tel` varchar(45) NOT NULL,
+  `etat` tinyint(1) NOT NULL DEFAULT '0',
+  `date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Contenu de la table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `departement`, `prenom`, `nom`, `adresse`, `ville`, `mail`, `message`, `tel`, `etat`, `date`) VALUES
+(7, '31000', 'Albert', 'Dupond', '1, rue Toulouse', 'Toulouse', 'arnold.stellio@gmail.com', 'Je voudrais acheter la porsche jaune, je me demande si elle encore disponible, merci de me contacter s''il vous plait.', '0618567899', 1, '2012-12-22'),
+(8, '31000', 'Paul', 'Jof', '1, rue Toulouse', 'Toulouse', 'cool@yahoo.fr', 'Un message est un ensemble de signes. Il implique donc un codage par l''émetteur, et un décodage par le récepteur (d''où la nécessité d''un code commun).Un message est un ensemble de signes. Il implique donc un codage par l''émetteur, et un décodage par le récepteur (d''où la nécessité d''un code commun).Un message est un ensemble de signes. Il implique donc un codage par l''émetteur, et un décodage par le récepteur (d''où la nécessité d''un code commun).', '0518567899', 0, '2012-12-22');
 
 -- --------------------------------------------------------
 
